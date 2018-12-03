@@ -17,9 +17,7 @@ fn read_input() -> Result<Vec<String>, io::Error> {
     let contents = BufReader::new(&file);
 
     return Ok(contents.lines()
-        .map(|l| {
-            return l.unwrap();
-        })
+        .map(|l| l.unwrap())
         .collect());
 }
 
@@ -46,8 +44,7 @@ fn get_character_counts(id: &String) -> HashMap<char, i32> {
     let mut counts = HashMap::new();
 
     id.chars().for_each(|c| {
-        let count = *counts.entry(c).or_insert(0);
-        counts.insert(c, count + 1);
+        *counts.entry(c).or_insert(0) += 1;
     });
 
     return counts;
@@ -83,7 +80,7 @@ fn num_diff_chars(lhs: &String, rhs: &String) -> i32 {
     let mut count = 0;
 
     for _ in 0..lhs.len() {
-        if lcs.nth(0).unwrap() != rcs.nth(0).unwrap() {
+        if lcs.next().unwrap() != rcs.next().unwrap() {
             count = count + 1;
         }
     }
@@ -102,8 +99,8 @@ fn all_equal_characters(lhs: &String, rhs: &String) -> String {
     let mut result = String::new();
 
     for _ in 0..lhs.len() {
-        let c = lcs.nth(0).unwrap();
-        if c == rcs.nth(0).unwrap() {
+        let c = lcs.next().unwrap();
+        if c == rcs.next().unwrap() {
             result.push(c);
         }
     }

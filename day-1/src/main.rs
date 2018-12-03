@@ -15,11 +15,11 @@ fn main() {
 
 fn read_input() -> Result<Vec<i32>, io::Error> {
     let file = File::open("input.txt")?;
-    let contents = BufReader::new(&file);
-
-    return Ok(contents.lines().map(|l| {
-        return FromStr::from_str(l.unwrap().as_str()).unwrap();
-    }).collect());
+    let result = BufReader::new(file)
+        .lines()
+        .map(|l| l.unwrap().parse().unwrap())
+        .collect();
+    Ok(result)
 }
 
 fn solve_silver(numbers: &Vec<i32>) -> i32 {
